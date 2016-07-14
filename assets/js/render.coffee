@@ -95,7 +95,10 @@ renderLine = (lineData, options = {}) ->
         if utils.isLink word_info.word
           for j in [word_info.start..word_info.end]
             line[j].renderOptions.type = 'a'
-            line[j].renderOptions.href = word_info.word
+            if utils.isVfDoc word_info.word
+              line[j].renderOptions.href = utils.vfDocUrl word_info.word
+            else
+              line[j].renderOptions.href = word_info.word
       word_start = i + 1
       word_chars = []
     else

@@ -190,7 +190,9 @@ keyDefinitions.registerMotion [CMD_GO, CMD_LINK], {
 },  () ->
   return (cursor) =>
     word = @session.document.getWord cursor.row, cursor.col
-    if utils.isLink word
+    if utils.isVfDoc word
+      window.open utils.vfDocUrl word
+    else if utils.isLink word
       window.open word
 
 ####################

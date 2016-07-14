@@ -11,9 +11,16 @@ exports.isWhitespace = (char) ->
 exports.isPunctuation = (char) ->
   return char == '.' or char == ',' or char == '!' or char == '?'
 
+vfDocRegex = /^vf\/[^\s]+/
+exports.isVfDoc = (word) ->
+  return vfDocRegex.test word
+
+exports.vfDocUrl = (word) ->
+  return "#{location.protocol}//#{location.host}/#{word.slice(3)}"
+
 urlRegex = /^https?:\/\/([^\s]+\.[^\s]+$|localhost)/
 exports.isLink = (word) ->
-  return urlRegex.test word
+  return (vfDocRegex.test word) or (urlRegex.test word)
 
 exports.mimetypeLookup = (filename) ->
   parts = filename.split '.'
